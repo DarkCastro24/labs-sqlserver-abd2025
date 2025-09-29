@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html>
@@ -73,7 +74,7 @@
           riesgos de errores y fortalece la seguridad.
         </p>
 
-        <p>Crearemos dos perfiles bien diferenciados:</p>
+        <p>Crearemos dos perfiles con funciones bien diferenciadas:</p>
         <ul>
           <li>
             El usuario <strong>orange</strong> (perfil analítico): podrá
@@ -150,6 +151,30 @@
     <img src="cambiar_clave.png" alt="cambiar clave sa desde propiedades" style="max-width: 100%; border: 1px solid #ccc; border-radius: 4px;">
   </ol>
 
+  <h3>Opcional: Cómo activar el inicio de sesion por medio de <strong>SQL Server Authentication  </strong> si está deshabilitado</h3>
+  <p>
+    Si al intentar iniciar sesión con el usuario "sa" da error es posible que al instalar SQL Server se haya dejado la autenticación de Windows únicamente. 
+    A continuación se detallan los pasos para activarlo desde <strong>SQL Server Management Studio</strong>:
+  </p>
+
+  <ol>
+    <li>Conéctate a la instancia de SQL Server usando <strong>Windows Authentication</strong> con un usuario administrador.</li>
+    <li>Haz clic derecho sobre el servidor en el <strong>Object Explorer</strong> → selecciona <strong>Properties</strong>.</li>
+    <img src="menu_activar_autenticacion.png" alt="Propiedades del servidor en SSMS" style="max-width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+
+    <li>En la ventana de propiedades, ve a la pestaña <strong>Security</strong> y selecciona la opción:
+      <ul>
+        <li><strong>SQL Server and Windows Authentication mode</strong></li>
+      </ul>
+      Esto habilita el modo mixto (Windows + SQL Server logins).
+    </li>
+    <img src="activar_sqlserverandwindows.png" alt="Habilitar autenticación mixta en SQL Server" style="max-width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+
+    <li>Haz clic en <strong>OK</strong> para guardar los cambios.</li>
+    <li><strong>Importante:</strong> Reinicia el servicio de SQL Server desde el <strong>Servicios de Windows</strong> para aplicar la nueva configuración.</li>
+    <img src="reiniciar_servicio.png" alt="Reiniciar servicio SQL Server" style="max-width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+  </ol>
+
   <!-- 🔹 Apartado Opcional 2: Cambiar nombre del login sa -->
   <h3>Opcional: Cambiar el nombre del login <strong>sa</strong> por seguridad</h3>
   <p>
@@ -157,8 +182,8 @@
     y reducir riesgos de ataques por diccionario. Esto no afecta su funcionalidad administrativa, pero es una excelente práctica.
   </p>
 
-  <p>Primero debes iniciar sesion con el usuario "sa" que acabas de activar posteriormente ejecuta el siguiente comando puedes agregar el nombre de usuario 
-    que desees en lugar de "admin_seguro":
+  <p>Ejecuta el siguiente comando en la hoja de consultas puedes colocar el nombre de usuario 
+    que desees en lugar de "admin_seguro" solo es importante que lo recuerdes:
   </p>
 
   <div class="code-container">
@@ -166,6 +191,9 @@
     <pre><code class="language-sql">
       -- Cambiar nombre del login sa a admin_seguro
       ALTER LOGIN sa WITH NAME = admin_seguro;
+
+      -- Cambiando la clave del admin
+      ALTER LOGIN admin_seguro WITH PASSWORD = 'ClaveSegura$02';
     </code></pre>
   </div>
 
@@ -189,7 +217,7 @@
   <p>Ahora que ya tenemos activado el usuario administrador, iniciamos sesión utilizando el modo de autenticación <strong>SQL Server Authentication</strong> y colocamos las credenciales que asignamos anteriormente:</p>
   <img src="login_sql.png" alt="login como sa" style="max-width: 100%; border: 1px solid #ccc; border-radius: 4px;">
 
-  <h3>Obligatorio: Crear la base de datos <strong>DB_Gimnasio</strong> con sus tablas e inserciones</h3>
+  <h3>Obligatorio: Crear la base de datos <strong>DB_Gimnasio</strong> con sus tablas e inserciones para continuar con la practica y posteriormente realizar los ejercicios guiados.</h3>
   <div class="code-container">
     <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
     <pre><code class="language-sql">
