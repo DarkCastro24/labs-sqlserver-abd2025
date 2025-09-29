@@ -541,10 +541,10 @@ SELECT USER_NAME() AS UsuarioDBActual, ORIGINAL_LOGIN() AS LoginOriginal;
             deberia ser <strong>dbo</strong> y no app_gym
           </p>
         </div>
-        <h3>¿Sera que orange tiene solo lectura en esquema dbo?. Probar que orange solo puede leer</h3>
+        <h3>¿Sera que orange tiene solo lectura en esquema dbo?</h3>
         <div class="code-container">
           <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-          <pre><code class="language-sql">--- PRUEBA: (INSERT debe FALLAR) 
+          <pre><code class="language-sql">--- Probar que orange solo puede leer (UN INSERT debe FALLAR) 
 EXECUTE AS USER = 'orange';
 
 -- Lectura permitida: debe funcionar en las tablas Cliente y Membresia 
@@ -585,7 +585,6 @@ GO
 </code></pre>
         </div></google-codelab-step
       >
-      <!-- Paso 6 -->
 <!-- Paso 6 -->
 <google-codelab-step duration="0" label="Buenas prácticas">
   <h3>
